@@ -17,6 +17,7 @@ def calcarea():
 
     global volume 
     volume = (length * width * depth)
+    print("The volume you have is" ,volume)
     whatsoil()
 
     return volume
