@@ -16,7 +16,8 @@ def calcarea():
     depth = float(input())
 
     global volume 
-    volume = (length * width * depth)
+    mcubes = (length * width * depth)
+    volume = (mcubes * 1000)
     print("The volume you have is" ,volume)
     whatsoil()
 
