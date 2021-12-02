@@ -43,7 +43,7 @@ def whatsoil():
 
 def bulkbag(volume):
     bag = SOIL[2]
-    total = bag / volume
+    total = volume / bag
 
     print("If you used bulk-bags you would need", total ,"bags")
 
@@ -62,8 +62,8 @@ def hundredbag(volume):
         bag = SOIL[1]
         total = volume / bag
 
-        if total<1 :
-            print("As you have less than one 100L bag, I would suggest ordering smaller bags")
+        if total % 50 == 0 :
+            print("You could have this order in smaller bags")
             print("If you would like to order a smaller sized bag press 1")
             if input()== 1:
                 fiftybag(volume)
