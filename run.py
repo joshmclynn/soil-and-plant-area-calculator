@@ -1,10 +1,11 @@
-<<<<<<< HEAD
-SOIL = [50,100,1000]
+SOIL = [50,100,850]
 SOILPRICE = [3.99,10,65]
 PLANTSIZE = [1,5,10]
 PLANTPRICE = [1.99,2.99,15.99]
 
-def calcsoil():
+volume = 0
+
+def calcarea():
     print("Please input the length of the area and press enter")
     length = float(input())
 
@@ -14,22 +15,72 @@ def calcsoil():
     print("Please enter the depth of the area and press enter")
     depth = float(input())
 
-    volume = length * width * depth
+    global volume 
+    volume = (length * width * depth)
+    whatsoil()
 
     return volume
-
-calcsoil()
-
-bulkbag(volume)   
-
     
+
+
+def whatsoil():
+    print("What size bag would you like to order")
+    print("""
+                ------1 = BULK-BAG ------
+                ------2 = 100L BAG ------
+                ------3 = 50L BAG  ------
+                
+        """)
+    answer = input("")
+    if answer== "1":
+        bulkbag(volume)
+    elif answer== "2":
+        hundredbag(volume)
+    elif answer== "3":
+        fiftybag(volume)
+       
+    
+
 def bulkbag(volume):
-        bag = SOILPRICE[2]
-        total = bag / volume
+    bag = SOIL[2]
+    total = bag / volume
 
-        print("If you used bulk-bags you would need", total ,"bags")
+    print("If you used bulk-bags you would need", total ,"bags")
 
-        
+    if total<1 :
+        print("As you have less than one bulk-bag I would suggest ordering smaller bags")
+        print("If you would like to order a smaller bag press 1")
+            
+            
+        if input()== "1":
+            hundredbag(volume)
+                       
+
+    
+
+def hundredbag(volume):
+        bag = SOIL[1]
+        total = volume / bag
+
+        if total<1 :
+            print("As you have less than one 100L bag, I would suggest ordering smaller bags")
+            print("If you would like to order a smaller sized bag press 1")
+            if input()== 1:
+                fiftybag(volume)
+
+        print("If you used 100L bags you would need", total ,"bags")
+    
+
+def fiftybag(volume):
+        bag = SOIL[0]
+        total = volume / bag
+
+        print("If you used 50L bags you would need", total ,"bags")
+    
+
+
+calcarea()
+    
 
 
 
@@ -44,24 +95,3 @@ def bulkbag(volume):
 
 
 
-=======
-import gspread
-from google.oauth2.service_account import Credentials
-
-SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-    ]
-
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('plant_shop')
-
-price = SHEET.worksheet('price')
-
-priceData = price.get_all_values()
-
-print(priceData)
->>>>>>> e2b4f1861c90b64ce40dd69b4b5f88f51a61dbe0
