@@ -1,9 +1,31 @@
+import gspread
+from google.oauth2.service_account import Credentials
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('plant_shop')
+ORDERS = SHEET.worksheet('orders')
+
+
+
+
+
+
 SOIL = [50,100,2831]
 SOILPRICE = [3.99,10,65]
 PLANTSIZE = [1,5,10]
 PLANTPRICE = [1.99,2.99,15.99]
 
 volume = 0
+pricedue = 0
+
 
 def calcarea():
     print("Please input the length of the area and press enter")
@@ -45,45 +67,65 @@ def whatsoil():
 
 def bulkbag(volume):
     bag = SOIL[2]
+    global total
     total = volume / bag
 
     print("If you used bulk-bags you would need", total ,"bags")
 
     if total<1 :
         print("As you have less than one bulk-bag I would suggest ordering smaller bags")
-        print("If you would like to order a smaller bag press 1")
+        print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
             
             
         if input()== "1":
             hundredbag(volume)
-                       
+        elif input()== "2":
+            global pricedue
+            pricedue = (total * SOILPRICE[2])
+            print ("Your total is £",pricedue,"press 1 to continue to payment, or 2 to return to menu")
+            if input()=="1":
+                payment()
+            if input()=="2":
+                menu()
 
     
-
 def hundredbag(volume):
         bag = SOIL[1]
+        global total
         total = volume / bag
 
-        if total % 50 == 0 :
+        print("If you used 100L bags you would need", total ,"bags")
+
+        if total / 50 == 0 :
             print("You could have this order in smaller bags")
-            print("If you would like to order a smaller sized bag press 1")
+            print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
             if input()== 1:
                 fiftybag(volume)
 
-        print("If you used 100L bags you would need", total ,"bags")
+        
     
 
 def fiftybag(volume):
         bag = SOIL[0]
+        global total
         total = volume / bag
 
         print("If you used 50L bags you would need", total ,"bags")
     
 
 
+
+
 calcarea()
     
+def payment(pricedue):
+    print("Your total is",pricedue)
+    print("Please enter your card details below")
+    cardno = input("")
+    orderno = (ORDERS.row_count + 1)
 
+    row = [orderno,cardno,pricedue]
+    ORDERS.insert_row(row,orderno)
 
 
 
