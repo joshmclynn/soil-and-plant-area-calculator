@@ -59,7 +59,7 @@ def whatsoil():
                 
         """)
     global answer
-    answer = input("1")
+    answer = input("")
     if answer== "1":
         bulkbag(volume)
     elif answer== "2":
@@ -142,7 +142,8 @@ def payment():
     cardno = input("")
     global ordernumber
     orderno = random.randint(1, 1000)
-    
+    row = [orderno,cardno,pricedue]
+    ORDERS.append_row(row)
     print("Your order number is",orderno,"you can use it to cancel your order")
 
     print("Press 1 to return to the main menu")
@@ -150,8 +151,7 @@ def payment():
         main()
     elif input()== "":
         print("Press 1 to return to the main menu")
-        row = [orderno,cardno,pricedue]
-        ORDERS.append_row(row)
+        
 
 
 
@@ -160,6 +160,8 @@ def cancelorder():
     
     userorder = input()
     order = ORDERS.row_values(ORDERS.find(userorder).row)
+    
+   
     
         
     
@@ -170,6 +172,8 @@ def cancelorder():
     
     if input() == "1":
         ORDERS.delete_rows(ORDERS.find(userorder).row)
+        print("order",userorder,"has now been cancelled")
+        main()
     elif input()() == "2":
         main()
         
