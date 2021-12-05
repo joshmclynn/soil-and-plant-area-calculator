@@ -1,3 +1,4 @@
+import random
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -26,6 +27,7 @@ PLANTPRICE = [1.99,2.99,15.99]
 volume = 0
 answer = ""
 pricedue = 0
+ordernumber = 0
 
 
 def calcarea():
@@ -102,9 +104,10 @@ def hundredbag(volume):
         if total / 50 == 0 :
             print("You could have this order in smaller bags")
             print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
-            if input()== 1:
+            if input()== "1":
                 fiftybag(volume)
-
+            elif input()== "2":
+                payment()
         
     
 
@@ -114,7 +117,10 @@ def fiftybag(volume):
         total = volume / bag
 
         print("If you used 50L bags you would need", total ,"bags")
-    
+        print("To continue to payment please press 2")
+
+        payment()
+
 
 
 
@@ -134,11 +140,14 @@ def payment():
 
     print("Please enter your card details below")
     cardno = input("")
-    orderno = ((ORDERS.row_count) + 1)
-    i = 1
+    global ordernumber
+    orderno = random.randint(1, 1000)
+    
+    print("Your order number is",orderno,"you can use it to cancel your order")
 
     row = [orderno,cardno,pricedue]
     ORDERS.append_row(row)
+
 
 
 
