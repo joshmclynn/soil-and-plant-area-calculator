@@ -24,6 +24,7 @@ PLANTSIZE = [1,5,10]
 PLANTPRICE = [1.99,2.99,15.99]
 
 volume = 0
+answer = ""
 pricedue = 0
 
 
@@ -55,7 +56,8 @@ def whatsoil():
                 ------3 = 50L BAG  ------
                 
         """)
-    answer = input("")
+    global answer
+    answer = input("1")
     if answer== "1":
         bulkbag(volume)
     elif answer== "2":
@@ -68,25 +70,26 @@ def whatsoil():
 def bulkbag(volume):
     bag = SOIL[2]
     global total
+    
     total = volume / bag
 
     print("If you used bulk-bags you would need", total ,"bags")
-
+    print("Press 2 to proceed to payment")
+    if input() == "2":
+        
+        payment()
     if total<1 :
         print("As you have less than one bulk-bag I would suggest ordering smaller bags")
         print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
-            
+        print("To return to the main menu enter 3")    
             
         if input()== "1":
             hundredbag(volume)
         elif input()== "2":
-            global pricedue
-            pricedue = (total * SOILPRICE[2])
-            print ("Your total is £",pricedue,"press 1 to continue to payment, or 2 to return to menu")
-            if input()=="1":
-                payment()
-            if input()=="2":
-                menu()
+            payment()
+        elif intput()=="3":
+            menu()
+           
 
     
 def hundredbag(volume):
@@ -116,26 +119,27 @@ def fiftybag(volume):
 
 
 
-calcarea()
     
-def payment(pricedue):
+def payment():
+    if answer =="1":
+        pricedue = total * SOILPRICE[2]
+        
+    elif answer =="2":
+        pricedue = total * SOILPRICE[1]
+        
+    elif answer =="3":
+        pricedue = total * SOILPRICE[0]
+       
     print("Your total is",pricedue)
+
     print("Please enter your card details below")
     cardno = input("")
-    orderno = (ORDERS.row_count + 1)
+    orderno = ((ORDERS.row_count) + 1)
+    i = 1
 
     row = [orderno,cardno,pricedue]
-    ORDERS.insert_row(row,orderno)
+    ORDERS.append_row(row)
 
 
 
-
-
-
-
-
-    
-
-
-
-
+calcarea()
