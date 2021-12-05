@@ -148,23 +148,32 @@ def payment():
     print("Press 1 to return to the main menu")
     if input()== "1":
         main()
-    else:
+    elif input()== "":
         print("Press 1 to return to the main menu")
-    row = [orderno,cardno,pricedue]
-    ORDERS.append_row(row)
+        row = [orderno,cardno,pricedue]
+        ORDERS.append_row(row)
 
-
-
-
-calcarea()
-
-def plantcalc():
 
 
 def cancelorder():
-    userorder = input()
     print("Please enter your order number")
-    if userorder == 
+    
+    userorder = input()
+    order = ORDERS.row_values(ORDERS.find(userorder).row)
+    
+        
+    
+
+    print("Your order is ",order,"are you sure you want to cancel it?")
+    print("If you wish to continue with cancelling your order please press 1")
+    print("If you no longer wish to cancel it, press 2")
+    
+    if input() == "1":
+        ORDERS.delete_rows(ORDERS.find(userorder).row)
+    elif input()() == "2":
+        main()
+        
+    
 
 
 
@@ -182,13 +191,17 @@ def main():
  |_____/   \___/  |_| |_|    \__,_| |_| |_|  \__,_|   | .__/  |_|  \__,_| |_| |_|  \__|    \___|  \__,_| |_|  \___|  \__,_| |_|  \__,_|  \__|  \___/  |_|   
                                                       | |                                                                                                   
                                                       |_|                                                                                                   """)
-    print("""                                     ------------ 1. Soil Calculator and Purchase  ----------
-                                                  ------------ 2. Plant Calculator and Purchase ----------
-                                                  ------------ 3. Cancel an Order               ----------
+    print("""                                     
+                                                ------------ 1. Soil Calculator and Purchase  ----------
+                                                ------------ 2. Plant Calculator and Purchase ----------
+                                                ------------ 3. Cancel an Order               ----------
                 """)
-    if input() == "1":
+    choice = input("Press the number of what you would like to do")
+    if choice == "1":
         calcarea()
-    elif input() == "2":
+    if choice == "2":
         plantcalc()
-    elif input() == "3":
+    if choice == "3":
         cancelorder()
+
+main()
