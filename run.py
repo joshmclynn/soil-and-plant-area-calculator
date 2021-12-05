@@ -101,12 +101,12 @@ def hundredbag(volume):
 
         print("If you used 100L bags you would need", total ,"bags")
 
-        if total / 50 == 0 :
-            print("You could have this order in smaller bags")
-            print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
-            if input()== "1":
+        
+        print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
+        hundbag = input("")
+        if hundbag == "1":
                 fiftybag(volume)
-            elif input()== "2":
+        elif hundbag == "2":
                 payment()
         
     
@@ -174,7 +174,7 @@ def cancelorder():
         ORDERS.delete_rows(ORDERS.find(userorder).row)
         print("order",userorder,"has now been cancelled")
         main()
-    elif input()() == "2":
+    if input()() == "2":
         main()
         
     
