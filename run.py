@@ -23,7 +23,7 @@ SOIL = [50,100,2831]
 SOILPRICE = [3.99,10,65]
 PLANTSIZE = [1,5,10]
 PLANTPRICE = [1.99,2.99,15.99]
-
+enter_input = "Enter your input here:"
 volume = 0
 answer = ""
 pricedue = 0
@@ -59,14 +59,14 @@ def whatsoil():
                 
         """)
     global answer
-    answer = input("Enter your input here:")
+    answer = input(enter_input)
     if answer== "1":
         bulkbag(volume)
     elif answer== "2":
         hundredbag(volume)
     elif answer== "3":
         fiftybag(volume)
-       
+        
     
 
 def bulkbag(volume):
@@ -76,21 +76,20 @@ def bulkbag(volume):
     total = volume / bag
 
     print("If you used bulk-bags you would need", total ,"bags")
-    print("Press 2 to proceed to payment")
-    if input() == "2":
-        
-        payment()
-    if total<1 :
-        print("As you have less than one bulk-bag I would suggest ordering smaller bags")
-        print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
-        print("To return to the main menu enter 3")    
-            
-        if input()== "1":
-            hundredbag(volume)
-        elif input()== "2":
+    print("Press 1 to proceed to payment")
+    print("Press 2 to return to the menu")
+    while True:
+        bulkbagansw = input(enter_input)
+        if bulkbagansw == "1":
             payment()
-        elif intput()=="3":
-            menu()
+            break
+        elif bulkbagansw == "2":
+            main()
+            break
+        else:
+            print("Incorrect input please choose between 1 and 2")
+        
+              
            
 
     
@@ -103,14 +102,17 @@ def hundredbag(volume):
 
         
         print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
-        hundbag = input("")
-        if hundbag == "1":
+        print("Or to return to the menu press 3")
+        while True:
+            hundbag = input(enter_input)
+            if hundbag == "1":
                 fiftybag(volume)
-        elif hundbag == "2":
+            elif hundbag == "2":
                 payment()
-        else:
-            print("Please enter either 1 or 2") 
-        
+            elif hundbag == "3":
+                main()
+            else:
+                print("Please choose between 1 and 3")
     
 
 def fiftybag(volume):
@@ -121,13 +123,16 @@ def fiftybag(volume):
         print("If you used 50L bags you would need", total ,"bags")
         print("To continue to payment please press 1")
         print("To return to the menu press 2")
-        fifbag = input("")
-        if fifbag == "1":
-            payment()
-        elif fifbag == "2":
-            main()
-        else:
-            print("Please enter a number between 1 to 2") 
+        
+        while True:
+            fifbag = input(enter_input)
+        
+            if fifbag == "1":
+                payment()
+            elif fifbag == "2":
+                main()
+            else:
+                print("Please choose either 1 or 2")
 
 
 
@@ -142,9 +147,8 @@ def payment():
         
     elif answer =="3":
         pricedue = total * SOILPRICE[0]
-    else:
-        print("Please enter a number between 1 and 3") 
-       
+    
+    
     print("Your total is",pricedue)
 
     print("Please enter your card details below")
@@ -156,10 +160,15 @@ def payment():
     print("Your order number is",orderno,"you can use it to cancel your order")
 
     print("Press 1 to return to the main menu")
-    if input()== "1":
-        main()
-    else:
-        print("Please enter 1 to return to the main menu")
+    while True:
+        payans = input(enter_input)
+        if payans == "1":
+            menu()
+            break
+        else:
+            print("To return to the menu press 1!")
+    
+        
         
         
 
@@ -179,15 +188,18 @@ def cancelorder():
     print("Your order is ",order,"are you sure you want to cancel it?")
     print("If you wish to continue with cancelling your order please press 1")
     print("If you no longer wish to cancel it, press 2")
-    
-    if input() == "1":
-        ORDERS.delete_rows(ORDERS.find(userorder).row)
-        print("order",userorder,"has now been cancelled")
-        main()
-    if input()() == "2":
-        main()
-    else:
-        print("Please enter a number between 1 and 2")    
+    while True:
+        cancel_input = input(enter_input)
+        if cancel_input == "1":
+            ORDERS.delete_rows(ORDERS.find(userorder).row)
+            print("order",userorder,"has now been cancelled")
+            main()
+            break
+        elif cancel_input == "2":
+            main()
+            break
+        else:
+            ("Please either press 1 or 2")
     
 
 
@@ -199,20 +211,26 @@ def main():
     print("""
     
                         𝕊𝕠𝕚𝕝 𝕒𝕟𝕕 𝕡𝕝𝕒𝕟𝕥 𝕔𝕒𝕝𝕔𝕦𝕝𝕒𝕥𝕠𝕣  
-                                                      |_|                                                                                                   """)
+                                                                                                                                                         """)
     print("""                                     
             ------------ 1. Soil Calculator and Purchase  ----------
             ------------ 2. Plant Calculator and Purchase ----------
             ------------ 3. Cancel an Order               ----------
+            ---- Enter the corresponding number to access your -----
+            ----------------- selection (1 - 3)---------------------
                 """)
-    choice = input("Press the number of what you would like to do")
-    if choice == "1":
-        calcarea()
-    if choice == "2":
-        plantcalc()
-    if choice == "3":
-        cancelorder()
-    else:
-        print("Not a valid input please enter a number between 1 and 3")
+    while True:
+        choice = input(enter_input)
+        if choice == "1":
+            calcarea()
+            break
+        elif choice == "2":
+            plantcalc()
+            break
+        elif choice == "3":
+            cancelorder()
+            break
+        else:
+            print("Please choose between 1-3")
 
 main()
