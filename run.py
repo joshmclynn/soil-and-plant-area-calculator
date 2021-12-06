@@ -108,6 +108,8 @@ def hundredbag(volume):
                 fiftybag(volume)
         elif hundbag == "2":
                 payment()
+        else:
+            print("Please enter either 1 or 2") 
         
     
 
@@ -117,10 +119,15 @@ def fiftybag(volume):
         total = volume / bag
 
         print("If you used 50L bags you would need", total ,"bags")
-        print("To continue to payment please press 2")
-
-        payment()
-
+        print("To continue to payment please press 1")
+        print("To return to the menu press 2")
+        fifbag = input("")
+        if fifbag == "1":
+            payment()
+        elif fifbag == "2":
+            main()
+        else:
+            print("Please enter a number between 1 to 2") 
 
 
 
@@ -135,6 +142,8 @@ def payment():
         
     elif answer =="3":
         pricedue = total * SOILPRICE[0]
+    else:
+        print("Please enter a number between 1 and 3") 
        
     print("Your total is",pricedue)
 
@@ -151,6 +160,9 @@ def payment():
         main()
     elif input()== "":
         print("Press 1 to return to the main menu")
+    else:
+        print("Please enter a number between 1 and 2")
+        payment() 
         
 
 
@@ -176,7 +188,8 @@ def cancelorder():
         main()
     if input()() == "2":
         main()
-        
+    else:
+        print("Please enter a number between 1 and 2")    
     
 
 
@@ -207,5 +220,7 @@ def main():
         plantcalc()
     if choice == "3":
         cancelorder()
+    else:
+        print("Not a valid input please enter a number between 1 and 3")
 
 main()
