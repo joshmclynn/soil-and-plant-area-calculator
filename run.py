@@ -35,10 +35,10 @@ def calcarea():
     length = float(input())
 
     print("Please enter the width of the area and press enter")
-    width = float(input())
+    width = float(input("Enter the width here:"))
 
     print("Please enter the depth of the area and press enter")
-    depth = float(input())
+    depth = float(input("Enter the length here:"))
 
     global volume 
     mcubes = (length * width * depth)
@@ -59,7 +59,7 @@ def whatsoil():
                 
         """)
     global answer
-    answer = input("")
+    answer = input("Enter your input here:")
     if answer== "1":
         bulkbag(volume)
     elif answer== "2":
@@ -158,11 +158,9 @@ def payment():
     print("Press 1 to return to the main menu")
     if input()== "1":
         main()
-    elif input()== "":
-        print("Press 1 to return to the main menu")
     else:
-        print("Please enter a number between 1 and 2")
-        payment() 
+        print("Please enter 1 to return to the main menu")
+        
         
 
 
@@ -200,18 +198,12 @@ def cancelorder():
 def main():
     print("""
     
-   _____           _   _                         _             _                   _                      _                  _           _                  
-  / ____|         (_) | |                       | |           | |                 | |                    | |                | |         | |                 
- | (___     ___    _  | |     __ _   _ __     __| |    _ __   | |   __ _   _ __   | |_      ___    __ _  | |   ___   _   _  | |   __ _  | |_    ___    _ __ 
-  \___ \   / _ \  | | | |    / _` | | '_ \   / _` |   | '_ \  | |  / _` | | '_ \  | __|    / __|  / _` | | |  / __| | | | | | |  / _` | | __|  / _ \  | '__|
-  ____) | | (_) | | | | |   | (_| | | | | | | (_| |   | |_) | | | | (_| | | | | | | |_    | (__  | (_| | | | | (__  | |_| | | | | (_| | | |_  | (_) | | |   
- |_____/   \___/  |_| |_|    \__,_| |_| |_|  \__,_|   | .__/  |_|  \__,_| |_| |_|  \__|    \___|  \__,_| |_|  \___|  \__,_| |_|  \__,_|  \__|  \___/  |_|   
-                                                      | |                                                                                                   
+                        𝕊𝕠𝕚𝕝 𝕒𝕟𝕕 𝕡𝕝𝕒𝕟𝕥 𝕔𝕒𝕝𝕔𝕦𝕝𝕒𝕥𝕠𝕣  
                                                       |_|                                                                                                   """)
     print("""                                     
-                                                ------------ 1. Soil Calculator and Purchase  ----------
-                                                ------------ 2. Plant Calculator and Purchase ----------
-                                                ------------ 3. Cancel an Order               ----------
+            ------------ 1. Soil Calculator and Purchase  ----------
+            ------------ 2. Plant Calculator and Purchase ----------
+            ------------ 3. Cancel an Order               ----------
                 """)
     choice = input("Press the number of what you would like to do")
     if choice == "1":
