@@ -143,7 +143,7 @@ def payment():
         pricedue = total * SOILPRICE[2]
         
     elif answer =="2":
-        pricedue = total * SOILPRICE[1]
+        pricedue = round(total * SOILPRICE[1],2)
         
     elif answer =="3":
         pricedue = total * SOILPRICE[0]
@@ -151,24 +151,27 @@ def payment():
     
     print("Your total is",pricedue)
 
-    print("Please enter your card details below")
-    cardno = input("")
-    global ordernumber
-    orderno = random.randint(1, 1000)
-    row = [orderno,cardno,pricedue]
-    ORDERS.append_row(row)
-    print("Your order number is",orderno,"you can use it to cancel your order")
-
-    print("Press 1 to return to the main menu")
+    print("To pay please press 1")
+    
+    print("Press m to return to the main menu")
     while True:
         payans = input(enter_input)
+        
         if payans == "1":
-            menu()
+            print("Please enter your card number")
+            cardno = input(enter_input)
+            orderno = random.randint(1, 1000)
+            row = [orderno,cardno,pricedue]
+            ORDERS.append_row(row)
+            print("Your order number is",orderno,"you can use it to cancel your order")
+            print("Enter m to return to the main menu")
+        if  payans == "m":
+            main()
             break
         else:
-            print("To return to the menu press 1!")
+            print("To return to the menu press m!")
     
-        
+
         
         
 
