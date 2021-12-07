@@ -177,15 +177,26 @@ def payment():
 def cancelorder():
     print("Please enter your order number")
     
-    userorder = input()
-    order = ORDERS.row_values(ORDERS.find(userorder).row)
     
-   
     
+    
+    while True:
+        userorder = input(enter_input)
+        currentorders = [o for o in ORDERS.col_values(1)]
         
-    
-
-    print("Your order is ",order,"are you sure you want to cancel it?")
+        if userorder in currentorders:
+            
+            order = ORDERS.row_values(ORDERS.find(userorder).row)
+            ordernum = order[0]
+            ordercred = order[1]
+            orderamount = order[2]
+            break
+        if userorder == "r":
+                main()
+        else:
+            print("Incorrect order number please re-enter your order number or enter r to return to menu")
+            
+    print("Your order is ","ORDER-NUMBER:",ordernum,"CARD-NUM:",ordercred,"ORDER-PRICE:",orderamount,"are you sure you want to cancel it?")
     print("If you wish to continue with cancelling your order please press 1")
     print("If you no longer wish to cancel it, press 2")
     while True:
@@ -201,7 +212,6 @@ def cancelorder():
         else:
             ("Please either press 1 or 2")
     
-
 
 
 
