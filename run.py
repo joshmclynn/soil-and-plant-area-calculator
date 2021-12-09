@@ -1,4 +1,5 @@
 import random
+import re
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -14,11 +15,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('plant_shop')
 ORDERS = SHEET.worksheet('orders')
 
-
-
-
-
-
 SOIL = [50,100,2831]
 SOILPRICE = [3.99,10,65]
 PLANTSIZE = [1,5,10]
@@ -28,34 +24,64 @@ volume = 0
 answer = ""
 pricedue = 0
 ordernumber = 0
+num_invalid ="Please only enter numbers"
 
 
 def calcarea():
-    print("Please input the length of the area and press enter")
-    length = float(input())
+    correctinput = r"^[.0-9]+$"
+    while True:
+        
+        print("Please input the length of the area(in M and CM) and press enter")
+        length = input(enter_input)
+        true = re.match(correctinput,length)
+        if true:
+            int(float(length))
+            break
+            
+        else:
+            print(num_invalid)
+        
 
-    print("Please enter the width of the area and press enter")
-    width = float(input("Enter the width here:"))
-
-    print("Please enter the depth of the area and press enter")
-    depth = float(input("Enter the length here:"))
-
+        
+    while True:
+        print("Please enter the width of the area(in M and CM) and press enter")
+        width = input(enter_input)
+        true = re.match(correctinput,width)
+        if true:
+            int(float(width))
+            break
+        else:
+            print(num_invalid)
+    while True:
+        print("Please enter the depth of the area(in M and CM) and press enter")
+        depth = input(enter_input)
+        true = re.match(correctinput, depth)
+        if true: 
+            
+            break
+        else:
+            print(num_invalid)
+    length = int(float(length))
+    
+    width = int(float(width))
+    
+    depth = int(float(depth))
+            
     global volume 
     mcubes = (length * width * depth)
     volume = (mcubes * 1000)
-    print("The volume you have is" ,volume)
+    print("The total volume you have is" ,volume,"in litres")
     whatsoil()
 
     return volume
     
-
-
+        
 def whatsoil():
     print("What size bag would you like to order")
     print("""
-                ------1 = BULK-BAG ------
-                ------2 = 100L BAG ------
-                ------3 = 50L BAG  ------
+                ------1 = BULK-BAG/PRICE £65 ------
+                ------2 = 100L BAG/PRICE £10 ------
+                ------3 = 50L BAG £3.99 ------
                 
         """)
     global answer
@@ -72,9 +98,7 @@ def whatsoil():
 def bulkbag(volume):
     bag = SOIL[2]
     global total
-    
     total = volume / bag
-
     print("If you used bulk-bags you would need", total ,"bags")
     print("Press 1 to proceed to payment")
     print("Press 2 to return to the menu")
@@ -91,8 +115,6 @@ def bulkbag(volume):
         
               
            
-
-    
 def hundredbag(volume):
         bag = SOIL[1]
         global total
@@ -119,11 +141,9 @@ def fiftybag(volume):
         bag = SOIL[0]
         global total
         total = volume / bag
-
         print("If you used 50L bags you would need", total ,"bags")
         print("To continue to payment please press 1")
         print("To return to the menu press 2")
-        
         while True:
             fifbag = input(enter_input)
         
@@ -140,19 +160,17 @@ def fiftybag(volume):
     
 def payment():
     if answer =="1":
-        pricedue = total * SOILPRICE[2]
+        pricedue = round(total * SOILPRICE[2],2)
         
     elif answer =="2":
         pricedue = round(total * SOILPRICE[1],2)
         
     elif answer =="3":
-        pricedue = total * SOILPRICE[0]
+        pricedue = round(total * SOILPRICE[0],2)
     
     
-    print("Your total is",pricedue)
-
+    print("Your total is : £",pricedue)
     print("To pay please press 1")
-    
     print("Press m to return to the main menu")
     while True:
         payans = input(enter_input)
@@ -179,16 +197,10 @@ def payment():
 
 def cancelorder():
     print("Please enter your order number")
-    
-    
-    
-    
     while True:
         userorder = input(enter_input)
         currentorders = [o for o in ORDERS.col_values(1)]
-        
         if userorder in currentorders:
-            
             order = ORDERS.row_values(ORDERS.find(userorder).row)
             ordernum = order[0]
             ordercred = order[1]
@@ -199,7 +211,7 @@ def cancelorder():
         else:
             print("Incorrect order number please re-enter your order number or enter r to return to menu")
             
-    print("Your order is ","ORDER-NUMBER:",ordernum,"CARD-NUM:",ordercred,"ORDER-PRICE:",orderamount,"are you sure you want to cancel it?")
+    print("Your order is ","ORDER-NUMBER:",ordernum,"CARD-NUM:",ordercred,"ORDER-PRICE:£",orderamount,"are you sure you want to cancel it?")
     print("If you wish to continue with cancelling your order please press 1")
     print("If you no longer wish to cancel it, press 2")
     while True:
@@ -217,21 +229,19 @@ def cancelorder():
     
 
 
-
-
-
 def main():
     print("""
     
                         𝕊𝕠𝕚𝕝 𝕒𝕟𝕕 𝕡𝕝𝕒𝕟𝕥 𝕔𝕒𝕝𝕔𝕦𝕝𝕒𝕥𝕠𝕣  
                                                                                                                                                          """)
     print("""                                     
-            ------------ 1. Soil Calculator and Purchase  ----------
-            ------------ 2. Plant Calculator and Purchase ----------
-            ------------ 3. Cancel an Order               ----------
-            ---- Enter the corresponding number to access your -----
-            ----------------- selection (1 - 3)---------------------
+            ------------ 1. Soil Calculator and Purchase            ----------
+            ------------ 2. Plant Calculator and Purchase           ----------
+            ------------ 3. Cancel an Order using your order number ----------
+            ----        Enter the corresponding number to access your     ----
+            ------------            selection (1 - 3)               ----------
                 """)
+    global choice
     while True:
         choice = input(enter_input)
         if choice == "1":
