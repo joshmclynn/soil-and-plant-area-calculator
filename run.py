@@ -1,4 +1,5 @@
 import random
+import math
 import re
 import gspread
 from google.oauth2.service_account import Credentials
@@ -98,7 +99,8 @@ def whatsoil():
 def bulkbag(volume):
     bag = SOIL[2]
     global total
-    total = volume / bag
+    pretotal = (volume / bag)
+    total = math.ceil(pretotal)
     print("If you used bulk-bags you would need", total ,"bags")
     print("Press 1 to proceed to payment")
     print("Press 2 to return to the menu")
@@ -118,7 +120,8 @@ def bulkbag(volume):
 def hundredbag(volume):
         bag = SOIL[1]
         global total
-        total = volume / bag
+        pretotal = volume / bag
+        total = math.ceil(pretotal)
 
         print("If you used 100L bags you would need", total ,"bags")
 
@@ -140,7 +143,8 @@ def hundredbag(volume):
 def fiftybag(volume):
         bag = SOIL[0]
         global total
-        total = volume / bag
+        pretotal = volume / bag
+        total = math.ceil(pretotal)
         print("If you used 50L bags you would need", total ,"bags")
         print("To continue to payment please press 1")
         print("To return to the menu press 2")
