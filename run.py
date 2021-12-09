@@ -26,16 +26,15 @@ answer = ""
 pricedue = 0
 ordernumber = 0
 num_invalid ="Please only enter numbers"
+total_area = 0
 
-
-def calcarea():
+def plantcalc():
     correctinput = r"^[.0-9]+$"
     while True:
         print("Please input the length of the area(in M and CM) and press enter")
         length = input(enter_input)
         true = re.match(correctinput,length)
         if true:
-            int(float(length))
             break
             
         else:
@@ -45,7 +44,39 @@ def calcarea():
         width = input(enter_input)
         true = re.match(correctinput,width)
         if true:
-            int(float(width))
+            
+            break
+        else:
+            print(num_invalid)
+    
+    length = int(float(length))
+    width = int(float(width))
+    
+    total_area = (length * width)
+    
+    print("The area you have is",total_area,"^2")
+    what_plants()
+    
+    
+    
+
+def calcarea():
+    correctinput = r"^[.0-9]+$"
+    while True:
+        print("Please input the length of the area(in M and CM) and press enter")
+        length = input(enter_input)
+        true = re.match(correctinput,length)
+        if true:
+            break
+            
+        else:
+            print(num_invalid)
+    while True:
+        print("Please enter the width of the area(in M and CM) and press enter")
+        width = input(enter_input)
+        true = re.match(correctinput,width)
+        if true:
+            
             break
         else:
             print(num_invalid)
