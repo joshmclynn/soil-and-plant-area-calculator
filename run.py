@@ -159,6 +159,7 @@ def fiftybag(volume):
 
     
 def payment():
+    global pricedue
     if answer =="1":
         pricedue = round(total * SOILPRICE[2],2)
         
@@ -191,21 +192,21 @@ def validate_card():
         cardno = input(enter_input)
         correct_card = r"^[0-9]{12}$"
         true = re.match(correct_card, cardno)       
-    if true:
-        addtoorders(cardno)
-    else:
-        print("Incorrect input please enter your 12 digit card number")
+        if true:
+            addtoorders(cardno,pricedue)
+        else:
+            print("Incorrect input please enter your 12 digit card number")
                   
     
-def addtoorders(cardno):
+def addtoorders(cardno,pricedue):
     
     orderno = random.randint(1, 1000)
     row = [orderno,cardno,pricedue]
     ORDERS.append_row(row)
     print("Your order number is",orderno,"you can use it to cancel your order")
     print("Enter m to return to the main menu")
-     
-    if  payans == "m":
+    order_ans = input(enter_input) 
+    if  order_ans == "m":
         main()
     else:
         print("To return to the menu press m!")
