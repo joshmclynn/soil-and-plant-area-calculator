@@ -31,7 +31,6 @@ num_invalid ="Please only enter numbers"
 def calcarea():
     correctinput = r"^[.0-9]+$"
     while True:
-        
         print("Please input the length of the area(in M and CM) and press enter")
         length = input(enter_input)
         true = re.match(correctinput,length)
@@ -41,9 +40,6 @@ def calcarea():
             
         else:
             print(num_invalid)
-        
-
-        
     while True:
         print("Please enter the width of the area(in M and CM) and press enter")
         width = input(enter_input)
@@ -180,20 +176,39 @@ def payment():
         payans = input(enter_input)
         
         if payans == "1":
-            print("Please enter your card number")
-            cardno = input(enter_input)
-            orderno = random.randint(1, 1000)
-            row = [orderno,cardno,pricedue]
-            ORDERS.append_row(row)
-            print("Your order number is",orderno,"you can use it to cancel your order")
-            print("Enter m to return to the main menu")
-        if  payans == "m":
-            main()
-            break
+            validate_card()  
+        elif payans =="m":
+                main()
+                break
         else:
-            print("To return to the menu press m!")
-    
+            payment()
 
+
+
+def validate_card():
+    print("Please enter your 12 digit card number")
+    while True:
+        cardno = input(enter_input)
+        correct_card = r"^[0-9]{12}$"
+        true = re.match(correct_card, cardno)       
+    if true:
+        addtoorders(cardno)
+    else:
+        print("Incorrect input please enter your 12 digit card number")
+                  
+    
+def addtoorders(cardno):
+    
+    orderno = random.randint(1, 1000)
+    row = [orderno,cardno,pricedue]
+    ORDERS.append_row(row)
+    print("Your order number is",orderno,"you can use it to cancel your order")
+    print("Enter m to return to the main menu")
+     
+    if  payans == "m":
+        main()
+    else:
+        print("To return to the menu press m!")
         
         
 
