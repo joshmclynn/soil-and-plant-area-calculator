@@ -18,7 +18,7 @@ ORDERS = SHEET.worksheet('orders')
 
 SOIL = [50,100,2831]
 SOILPRICE = [3.99,10,65]
-PLANTSIZE = [1,5,10]
+PLANTSIZE = [.13,.225,.28]
 PLANTPRICE = [1.99,2.99,15.99]
 enter_input = "Enter your input here:"
 volume = 0
@@ -27,8 +27,32 @@ pricedue = 0
 ordernumber = 0
 num_invalid ="Please only enter numbers"
 total_area = 0
+pot_choice = 0
+
 
 def plantcalc():
+    print("Which pot size would you like to use in your garden")
+    print("""
+          ------------ 1. 1 Litre ------------
+          ------------ 2. 5 Litre ------------
+          ------------ 3. 10 Litre -----------
+          """)
+    print("Please enter the corrosponding number to your choice of pot size")
+    while True:
+        answer = input(enter_input)
+        global pot_choice
+        if answer == "1":
+            pot_choice = PLANTSIZE[0]
+            break
+        elif answer == "2":
+            pot_choice = PLANTSIZE[1]
+            break
+        elif answer == "3":
+            pot_choice = PLANTSIZE[2]
+            break
+        else:
+            print("Please only choose from the above choices 1-3!")
+    
     correctinput = r"^[.0-9]+$"
     while True:
         print("Please input the length of the area(in M and CM) and press enter")
@@ -54,12 +78,26 @@ def plantcalc():
     
     total_area = (length * width)
     
-    print("The area you have is",total_area,"^2")
-    what_plants()
+    print("The area you have is",total_area,"meters squared")
+    calc_plant(total_area,pot_choice)
     
     
+def calc_plant(total_area,pot_choice):
+    amount_needed = (total_area / pot_choice)
+    print("To fill the area with",pot_choice,"litre pots, you would need",amount_needed,"pots")
+    print("If you would like to know the average cost for",amount_needed,"pots,")
+    print("please press 1, to return to the main menu press 2")
     
-
+    while True:
+        answer = input(enter_input)
+        if answer == "1":
+            plant_price()
+        elif answer == "2":
+            main()
+        else:
+            print("Please choose from the above options 1-2")
+    
+    
 def calcarea():
     correctinput = r"^[.0-9]+$"
     while True:
@@ -68,7 +106,6 @@ def calcarea():
         true = re.match(correctinput,length)
         if true:
             break
-            
         else:
             print(num_invalid)
     while True:
@@ -76,7 +113,6 @@ def calcarea():
         width = input(enter_input)
         true = re.match(correctinput,width)
         if true:
-            
             break
         else:
             print(num_invalid)
@@ -90,17 +126,13 @@ def calcarea():
         else:
             print(num_invalid)
     length = int(float(length))
-    
     width = int(float(width))
-    
     depth = int(float(depth))
-            
     global volume 
     mcubes = (length * width * depth)
     volume = (mcubes * 1000)
     print("The total volume you have is" ,volume,"in litres")
     whatsoil()
-
     return volume
     
         
@@ -122,7 +154,6 @@ def whatsoil():
         fiftybag(volume)
         
     
-
 def bulkbag(volume):
     bag = SOIL[2]
     global total
@@ -143,7 +174,6 @@ def bulkbag(volume):
             print("Incorrect input please choose between 1 and 2")
         
               
-           
 def hundredbag(volume):
         bag = SOIL[1]
         global total
@@ -177,7 +207,6 @@ def fiftybag(volume):
         print("To return to the menu press 2")
         while True:
             fifbag = input(enter_input)
-        
             if fifbag == "1":
                 payment()
             elif fifbag == "2":
@@ -186,9 +215,6 @@ def fiftybag(volume):
                 print("Please choose either 1 or 2")
 
 
-
-
-    
 def payment():
     global pricedue
     if answer =="1":
@@ -196,11 +222,8 @@ def payment():
         
     elif answer =="2":
         pricedue = round(total * SOILPRICE[1],2)
-        
     elif answer =="3":
         pricedue = round(total * SOILPRICE[0],2)
-    
-    
     print("Your total is : £",pricedue)
     print("To pay please press 1")
     print("Press m to return to the main menu")
@@ -214,7 +237,6 @@ def payment():
                 break
         else:
             payment()
-
 
 
 def validate_card():
@@ -243,9 +265,6 @@ def addtoorders(cardno,pricedue):
         print("To return to the menu press m!")
         
         
-
-
-
 def cancelorder():
     print("Please enter your order number")
     while True:
@@ -279,7 +298,6 @@ def cancelorder():
             ("Please either press 1 or 2")
     
 
-
 def main():
     print("""
     
@@ -306,5 +324,4 @@ def main():
             break
         else:
             print("Please choose between 1-3")
-
 main()
