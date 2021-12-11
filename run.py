@@ -15,11 +15,11 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('plant_shop')
 ORDERS = SHEET.worksheet('orders')
+PLANTS = SHEET.worksheet('plants')
 
 SOIL = [50,100,2831]
 SOILPRICE = [3.99,10,65]
 PLANTSIZE = [.13,.225,.28]
-PLANTPRICE = [1.99,2.99,15.99]
 enter_input = "Enter your input here:"
 volume = 0
 answer = ""
@@ -28,6 +28,7 @@ ordernumber = 0
 num_invalid ="Please only enter numbers"
 total_area = 0
 pot_choice = 0
+plant_price_amount = 0
 
 
 def plantcalc():
@@ -41,14 +42,20 @@ def plantcalc():
     while True:
         answer = input(enter_input)
         global pot_choice
+        global pot_type
         if answer == "1":
             pot_choice = PLANTSIZE[0]
+            pot_type = "1 Litre"
+            
             break
         elif answer == "2":
             pot_choice = PLANTSIZE[1]
+            pot_type = "5 litre"
+            
             break
         elif answer == "3":
             pot_choice = PLANTSIZE[2]
+            pot_type = "10 Litre"
             break
         else:
             print("Please only choose from the above choices 1-3!")
@@ -84,19 +91,54 @@ def plantcalc():
     
 def calc_plant(total_area,pot_choice):
     amount_needed = (total_area / pot_choice)
-    print("To fill the area with",pot_choice,"litre pots, you would need",amount_needed,"pots")
-    print("If you would like to know the average cost for",amount_needed,"pots,")
+    amount_needed_round = math.floor(amount_needed)
+    print("To fill the area with",pot_type,"pots, you would need",amount_needed_round,"pots")
+    print("If you would like to know the average cost for",amount_needed_round,"pots,")
     print("please press 1, to return to the main menu press 2")
     
     while True:
         answer = input(enter_input)
         if answer == "1":
-            plant_price()
+            plant_price(pot_type)
         elif answer == "2":
             main()
         else:
             print("Please choose from the above options 1-2")
     
+
+def plant_price(pot_type):
+    print("Here are some examples of prices for plants for the pot size you need")
+    plant_list = {}
+    price_list = {}
+    display_list = {}
+    while True:
+        if pot_type == "1 Litre":
+            plant_list = PLANTS.col_values(1)
+            price_list = PLANTS.col_values(2)
+            
+            break
+        elif pot_type == "5 Litre":
+            plant_list = PLANTS.col_values(1)
+            price_list = PLANTS.col_values(3)
+            
+            break
+        elif pot_type == "10 Litre":
+            plant_list = PLANTS.col_values(1)
+            price_list = PLANTS.col_values(4)
+            break
+    
+    display_list = (plant_list + price_list)
+    
+    print(display_list)
+    
+    print("To return to the menu please enter 1")
+    answer = input(enter_input)
+    if answer =="1":
+        main()
+    else:
+        print("To return to the menu enter 1!")
+            
+            
     
 def calcarea():
     correctinput = r"^[.0-9]+$"
@@ -225,19 +267,19 @@ def payment():
     elif answer =="3":
         pricedue = round(total * SOILPRICE[0],2)
     print("Your total is : £",pricedue)
-    print("To pay please press 1")
-    print("Press m to return to the main menu")
+    print("To pay please enter 1")
+    print("enter 2 to return to the main menu")
     while True:
         payans = input(enter_input)
         
         if payans == "1":
-            validate_card()  
-        elif payans =="m":
+            validate_card()
+            break  
+        elif payans =="2":
                 main()
                 break
-        else:
-            payment()
-
+        else: 
+            print("Please enter either 1 or 2!")
 
 def validate_card():
     print("Please enter your 12 digit card number")
@@ -247,6 +289,7 @@ def validate_card():
         true = re.match(correct_card, cardno)       
         if true:
             addtoorders(cardno,pricedue)
+            break
         else:
             print("Incorrect input please enter your 12 digit card number")
                   
@@ -257,12 +300,14 @@ def addtoorders(cardno,pricedue):
     row = [orderno,cardno,pricedue]
     ORDERS.append_row(row)
     print("Your order number is",orderno,"you can use it to cancel your order")
-    print("Enter m to return to the main menu")
+    print("Enter 1 to return to the main menu")
     order_ans = input(enter_input) 
-    if  order_ans == "m":
-        main()
-    else:
-        print("To return to the menu press m!")
+    while True:
+        if  order_ans == "1":
+            main()
+            break
+        else:
+            print("To return to the menu press m!")
         
         
 def cancelorder():
