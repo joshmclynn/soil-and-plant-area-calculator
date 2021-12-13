@@ -115,15 +115,16 @@ def calc_plant(total_area,pot_choice):
 
 def plant_price(pot_type, amount_needed_round):
     print(break_line)
-    print("Here are some examples of prices for plants for the pot size you need")
+    print("Here are some examples of total prices for the amount of plants that you need for the pot size you want")
+    
     print(break_line)
-    plant_list = []
     price_list = []
+    plant_list = []
     while True:
         if pot_type == "1 Litre":
-                plant_list = PLANTS.col_values(1)
-                price_list = PLANTS.col_values(2)
-                break
+            plant_list = PLANTS.col_values(1)
+            price_list = PLANTS.col_values(2)
+            break   
         elif pot_type == "5 Litre":
             plant_list = PLANTS.col_values(1)
             price_list = PLANTS.col_values(3)
