@@ -17,15 +17,15 @@ SHEET = GSPREAD_CLIENT.open('plant_shop')
 ORDERS = SHEET.worksheet('orders')
 PLANTS = SHEET.worksheet('plants')
 
-SOIL = [50,100,2831]
-SOILPRICE = [3.99,10,65]
-PLANTSIZE = [.13,.225,.28]
+SOIL = [50, 100, 2831]
+SOILPRICE = [3.99, 10, 65]
+PLANTSIZE = [.13, .225, .28]
 enter_input = "Enter your input here:"
 volume = 0
 answer = ""
 pricedue = 0
 ordernumber = 0
-num_invalid ="Please only enter numbers"
+num_invalid = "Please only enter numbers"
 break_line = "----------------------------------------------------------------"
 total_area = 0
 pot_choice = 0
@@ -39,7 +39,6 @@ def plantcalc():
     the function then calculates the area in m^2 and returns this to the user and then calls 
     the function that will calculate total number of pots required at the users required size
     """
-    
     print("Which pot size would you like to use in your garden")
     print(break_line)
     print("""
@@ -67,13 +66,12 @@ def plantcalc():
             break
         else:
             print("Please only choose from the above choices 1-3!")
-    
     correctinput = r"^[.0-9]+$"
     while True:
         print(break_line)
         print("Please input the length of the area(in M and CM) and press enter")
         length = input(enter_input)
-        true = re.match(correctinput,length)
+        true = re.match(correctinput, length)
         if true:
             break
             
@@ -83,23 +81,20 @@ def plantcalc():
         print(break_line)
         print("Please enter the width of the area(in M and CM) and press enter")
         width = input(enter_input)
-        true = re.match(correctinput,width)
+        true = re.match(correctinput, width)
         if true:
-            
             break
         else:
             print(num_invalid)
-    
     length = int(float(length))
     width = int(float(width))
     total_area = (length * width)
     print(break_line)
-    print("The area you have is",total_area,"meters squared")
+    print("The area you have is", total_area, "meters squared")
+    calc_plant(total_area, pot_choice)
     
-    calc_plant(total_area,pot_choice)
     
-    
-def calc_plant(total_area,pot_choice):
+def calc_plant(total_area, pot_choice):
     """
     This function calculates the total plants needed for the user to fill their area,
     by dividing the total area by the  users selected pot size, 
@@ -109,14 +104,14 @@ def calc_plant(total_area,pot_choice):
     amount_needed = (total_area / pot_choice)
     amount_needed_round = math.floor(amount_needed)
     print(break_line)
-    print("To fill the area with",pot_type,"pots, you would need",amount_needed_round,"pots")
-    print("If you would like to know the average cost for",amount_needed_round,"pots,")
+    print("To fill the area with", pot_type, "pots, you would need", amount_needed_round, "pots")
+    print("If you would like to know the average cost for", amount_needed_round, "pots,")
     print("please press 1, to return to the main menu press 2")
     
     while True:
         answer = input(enter_input)
         if answer == "1":
-            plant_price(pot_type,amount_needed_round)
+            plant_price(pot_type, amount_needed_round)
         elif answer == "2":
             main()
         else:
@@ -142,7 +137,7 @@ def plant_price(pot_type, amount_needed_round):
         if pot_type == "1 Litre":
             plant_list = PLANTS.col_values(1)
             price_list = PLANTS.col_values(2)
-            break   
+            break
         elif pot_type == "5 Litre":
             plant_list = PLANTS.col_values(1)
             price_list = PLANTS.col_values(3)
@@ -158,11 +153,12 @@ def plant_price(pot_type, amount_needed_round):
     print(display_list)
     print("To return to the menu please enter 1")
     print(break_line)
-    answer = input(enter_input)
-    if answer =="1":
-        main()
-    else:
-        print("To return to the menu enter 1!")
+    while True:
+        answer = input(enter_input)
+        if answer == "1":
+            main()
+        else:
+            print("To return to the menu enter 1!")
             
             
 def calcarea():
@@ -177,7 +173,7 @@ def calcarea():
         print(break_line)
         print("Please input the length of the area(in M and CM) and press enter")
         length = input(enter_input)
-        true = re.match(correctinput,length)
+        true = re.match(correctinput, length)
         if true:
             break
         else:
@@ -186,7 +182,7 @@ def calcarea():
         print(break_line)
         print("Please enter the width of the area(in M and CM) and press enter")
         width = input(enter_input)
-        true = re.match(correctinput,width)
+        true = re.match(correctinput, width)
         if true:
             break
         else:
@@ -208,7 +204,7 @@ def calcarea():
     mcubes = (length * width * depth)
     volume = (mcubes * 1000)
     print(break_line)
-    print("The total volume you have is" ,volume,"in litres")
+    print("The total volume you have is" , volume, "in litres")
     whatsoil()
     return volume
     
@@ -228,11 +224,11 @@ def whatsoil():
         """)
     global answer
     answer = input(enter_input)
-    if answer== "1":
+    if answer == "1":
         bulkbag(volume)
-    elif answer== "2":
+    elif answer == "2":
         hundredbag(volume)
-    elif answer== "3":
+    elif answer == "3":
         fiftybag(volume)
         
     
@@ -246,7 +242,19 @@ def bulkbag(volume):
     pretotal = (volume / bag)
     total = math.ceil(pretotal)
     print(break_line)
-    print("If you used bulk-bags you would need", total ,"bags")
+    print("If you used bulk-bags you would need", total, "bags")
+    if pretotal <= 1:
+        print("As you have less than one bulk bag I would recomend ordering 100L bags")
+        print("If you would like to order 100L bags instead please enter 1, if not please enter 2 to continue")
+        while True:
+            answer = input(enter_input)
+            if answer == "1":
+                hundredbag(volume)
+                break
+            elif answer == "2":
+                break
+            else:
+                print("Please either enter 1 or 2!")
     print("Press 1 to proceed to payment")
     print("Press 2 to return to the menu")
     while True:
@@ -272,7 +280,7 @@ def hundredbag(volume):
     pretotal = volume / bag
     total = math.ceil(pretotal)
     print(break_line)
-    print("If you used 100L bags you would need", total ,"bags")
+    print("If you used 100L bags you would need", total, "bags")
     print("If you would like to order a smaller bag press 1 or 2 to continue with your order")
     print("Or to return to the menu press 3")
     while True:
@@ -297,7 +305,7 @@ def fiftybag(volume):
     pretotal = volume / bag
     total = math.ceil(pretotal)
     print(break_line)
-    print("If you used 50L bags you would need", total ,"bags")
+    print("If you used 50L bags you would need", total, "bags")
     print("To continue to payment please press 1")
     print("To return to the menu press 2")
     while True:
@@ -316,16 +324,16 @@ def payment():
     to payment it then sends the information to the validate card function
     """
     global pricedue
-    if answer =="1":
-        pricedue = round(total * SOILPRICE[2],2)
+    if answer == "1":
+        pricedue = round(total * SOILPRICE[2], 2)
         
-    elif answer =="2":
-        pricedue = round(total * SOILPRICE[1],2)
-    elif answer =="3":
-        pricedue = round(total * SOILPRICE[0],2)
+    elif answer == "2":
+        pricedue = round(total * SOILPRICE[1], 2)
+    elif answer == "3":
+        pricedue = round(total * SOILPRICE[0], 2)
     
     print(break_line)
-    print("Your total is : £",pricedue)
+    print("Your total is : £", pricedue)
     print("To pay please enter 1")
     print("enter 2 to return to the main menu")
     while True:
@@ -333,7 +341,7 @@ def payment():
         if payans == "1":
             validate_card()
             break  
-        elif payans =="2":
+        elif payans == "2":
                 main()
                 break
         else: 
@@ -352,13 +360,13 @@ def validate_card():
         correct_card = r"^[0-9]{12}$"
         true = re.match(correct_card, cardno)       
         if true:
-            addtoorders(cardno,pricedue)
+            addtoorders(cardno, pricedue)
             break
         else:
             print("Incorrect input please enter your 12 digit card number")
                   
     
-def addtoorders(cardno,pricedue):
+def addtoorders(cardno, pricedue):
     """
     This function adds the users order in a new row to the googlesheets spreadsheet, 
     it also generates a random number between 1 and 1000 for the users order number.
@@ -366,10 +374,10 @@ def addtoorders(cardno,pricedue):
     order in the future using other features of this application
     """
     orderno = random.randint(1, 1000)
-    row = [orderno,cardno,pricedue]
+    row = [orderno, cardno, pricedue]
     ORDERS.append_row(row)
     print(break_line)
-    print("Your order number is",orderno,"you can use it to cancel your order")
+    print("Your order number is", orderno, "you can use it to cancel your order")
     print("Enter 1 to return to the main menu")
     order_ans = input(enter_input) 
     while True:
@@ -405,7 +413,7 @@ def cancelorder():
         else:
             print("Incorrect order number please re-enter your order number or enter r to return to menu")
     print(break_line)       
-    print("Your order is ","ORDER-NUMBER:",ordernum,"CARD-NUM:",ordercred,"ORDER-PRICE:£",orderamount,)
+    print("Your order is ","ORDER-NUMBER:", ordernum, "CARD-NUM:", ordercred, "ORDER-PRICE:£", orderamount,)
     print("are you sure you want to cancel it?")
     print("If you wish to continue with cancelling your order please press 1")
     print("If you no longer wish to cancel it, press 2")
@@ -413,7 +421,7 @@ def cancelorder():
         cancel_input = input(enter_input)
         if cancel_input == "1":
             ORDERS.delete_rows(ORDERS.find(userorder).row)
-            print("order",userorder,"has now been cancelled")
+            print("order", userorder, "has now been cancelled")
             main()
             break
         elif cancel_input == "2":
@@ -431,16 +439,15 @@ def main():
     """
     print("""
     
-                        𝕊𝕠𝕚𝕝 𝕒𝕟𝕕 𝕡𝕝𝕒𝕟𝕥 𝕔𝕒𝕝𝕔𝕦𝕝𝕒𝕥𝕠𝕣  
-                                                                                """)
+                            𝕊𝕠𝕚𝕝 𝕒𝕟𝕕 𝕡𝕝𝕒𝕟𝕥 𝕔𝕒𝕝𝕔𝕦𝕝𝕒𝕥𝕠𝕣  
+                                                                            """)
     print("""                                     
             ------------ 1. Soil Calculator and Purchase            ----------
             ------------ 2. Plant Calculator and Purchase           ----------
             ------------ 3. Cancel an Order using your order number ----------
             ------------------------------------------------------------------       
               Enter the corresponding number to access your selection (1 - 3)
-        
-        """)
+         """)
     global choice
     while True:
         choice = input(enter_input)
