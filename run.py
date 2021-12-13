@@ -203,12 +203,11 @@ def calcarea():
             break
         else:
             print(num_invalid)
-    length = int(float(length))
-    width = int(float(width))
-    depth = int(float(depth))
+    length = float(length)
+    width = float(width)
+    depth = float(depth)
     global volume
     mcubes = (length * width * depth)
-    print(mcubes)
     volume = (mcubes * 1000)
     print(break_line)
     print("The total volume you have is", volume, "in litres")
