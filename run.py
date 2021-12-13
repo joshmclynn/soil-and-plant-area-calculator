@@ -122,8 +122,8 @@ def plant_price(pot_type, amount_needed_round):
     # the user needs, returning this information to them. Using a for loop to create tuples within a list grouping the plant to the correct pricing.
     #
     print(break_line)
-    print("Here are some examples of total prices for the amount of plants that you need for")
-    print("the pot size you want Plant-Name / total price in pounds")
+    print("Here are some examples of total prices for the amount of plants that")
+    print("you would need for the pot size you want Plant-Name / total price in pounds")
     
     print(break_line)
     price_list = []
