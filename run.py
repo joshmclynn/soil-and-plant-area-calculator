@@ -106,14 +106,14 @@ def calc_plant(total_area,pot_choice):
     while True:
         answer = input(enter_input)
         if answer == "1":
-            plant_price(pot_type)
+            plant_price(pot_type,amount_needed_round)
         elif answer == "2":
             main()
         else:
             print("Please choose from the above options 1-2")
     
 
-def plant_price(pot_type):
+def plant_price(pot_type, amount_needed_round):
     print(break_line)
     print("Here are some examples of prices for plants for the pot size you need")
     print(break_line)
@@ -134,7 +134,8 @@ def plant_price(pot_type):
             break
     
     display_list = []
-    display_list = [(plant_list[i],price_list[i]) for i in range(0, len(plant_list))]
+    full_price = [(int(float(price_list[i])) * amount_needed_round)for i in range(0,len(price_list))]
+    display_list = [(plant_list[i],full_price[i]) for i in range(0, len(plant_list))]
     print(display_list)
     
     print("To return to the menu please enter 1")
