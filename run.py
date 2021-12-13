@@ -86,8 +86,8 @@ def plantcalc():
             break
         else:
             print(num_invalid)
-    length = int(float(length))
-    width = int(float(width))
+    length = float(length)
+    width = float(width)
     total_area = (length * width)
     print(break_line)
     print("The area you have is", total_area, "meters squared")
@@ -253,7 +253,7 @@ def bulkbag(volume):
     if pretotal <= 1:
         print("You have less than one bulk bag you should order 100L bags")
         print("If you would like to order 100L bags instead please enter 1,")
-        print("To return to the menu enter 2")
+        print("Or to continue enter 2")
         while True:
             answer = input(enter_input)
             if answer == "1":
