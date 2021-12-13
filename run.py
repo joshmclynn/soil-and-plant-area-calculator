@@ -33,6 +33,9 @@ plant_price_amount = 0
 
 
 def plantcalc():
+    # This function prompts the user to enter the pot size they want, sets the variables to match there choice then asks the user to enter the dimensions of the area they wish to plant
+    # the function then calculates the area in m^2 and returns this to the user and then calls the function that will calculate total number of pots required at the users required size
+    #
     print("Which pot size would you like to use in your garden")
     print(break_line)
     print("""
@@ -87,7 +90,6 @@ def plantcalc():
     
     length = int(float(length))
     width = int(float(width))
-    
     total_area = (length * width)
     print(break_line)
     print("The area you have is",total_area,"meters squared")
@@ -96,6 +98,8 @@ def plantcalc():
     
     
 def calc_plant(total_area,pot_choice):
+    # This function calculates the total plants needed for the user to fill their area, by dividing the total area by the  users selected pot size, it then prompts the user to either find
+    # out how much a variety of plants would cost with that amount of individual units needed
     amount_needed = (total_area / pot_choice)
     amount_needed_round = math.floor(amount_needed)
     print(break_line)
@@ -114,6 +118,9 @@ def calc_plant(total_area,pot_choice):
     
 
 def plant_price(pot_type, amount_needed_round):
+    # This function calculates the price of the plants which the user would need, taking the information from a google sheets spreadsheet, it then times the price of each plant by the amount of pots
+    # the user needs, returning this information to them. Using a for loop to create tuples within a list grouping the plant to the correct pricing.
+    #
     print(break_line)
     print("Here are some examples of total prices for the amount of plants that you need for the pot size you want")
     print("Plant-Name / total price in pounds")
@@ -136,13 +143,9 @@ def plant_price(pot_type, amount_needed_round):
             break
     
     display_list = []
-   
     full_price = [(int(float(price_list[i])) * amount_needed_round)for i in range(0,len(price_list))]
-    
-    prepend(full_price_format,pound)
     display_list = [(plant_list[i],full_price[i]) for i in range(0, len(plant_list))]
     print(display_list)
-    
     print("To return to the menu please enter 1")
     print(break_line)
     answer = input(enter_input)
@@ -152,8 +155,10 @@ def plant_price(pot_type, amount_needed_round):
         print("To return to the menu enter 1!")
             
             
-    
 def calcarea():
+    # This function prompts the user to enter the dimensions of the area they are wanting to fill with soil, it only allows the user to enter numbers, prompting them to re-enter if 
+    # otherwise, it then calculates the volume of the area, then converts this number into litres then returning this information to the user, it then sends the user to a function allowing
+    # them to choose the size of soil bags they want
     correctinput = r"^[.0-9]+$"
     while True:
         print(break_line)
@@ -196,6 +201,7 @@ def calcarea():
     
         
 def whatsoil():
+    # This function prompts the user to choose from the soil bag sizes and then sends this infomation to the relevant function (50L, 100L or bulkbag)
     print(break_line)
     print("What size bag would you like to order")
     print("""
@@ -215,6 +221,7 @@ def whatsoil():
         
     
 def bulkbag(volume):
+    # This function returns the total amount of "bulk-bags" needed to fill the users inputed area, it then prompts the user to either navigate to payment or return to the menu
     bag = SOIL[2]
     global total
     pretotal = (volume / bag)
@@ -236,6 +243,8 @@ def bulkbag(volume):
         
               
 def hundredbag(volume):
+    # This function returns the total amount of 100 litre soil bags needed to fill the users inputed area, it then asks if the user would like to either 
+    # buy smaller bags or continue to payment, or return to the menu
         bag = SOIL[1]
         global total
         pretotal = volume / bag
@@ -257,6 +266,8 @@ def hundredbag(volume):
     
 
 def fiftybag(volume):
+    # This function returns the total amount of 50 litre soil bags needed to fill the users inputed area(rounded up as you cant sell half bags)
+    # It then prompts the user to either continue to payment or return to the menu
         bag = SOIL[0]
         global total
         pretotal = volume / bag
@@ -276,6 +287,8 @@ def fiftybag(volume):
 
 
 def payment():
+    # This function calculates the price due from the users order, then returns the price to the user and asks whether they would like to continue
+    # it then asks for the users card number only allowing 12 digits to be entered otherwise returning a message asking for resubmission, it then sends the information to the addtoorder function
     global pricedue
     if answer =="1":
         pricedue = round(total * SOILPRICE[2],2)
@@ -300,6 +313,7 @@ def payment():
                 break
         else: 
             print("Please enter either 1 or 2!")
+            
 
 def validate_card():
     print(break_line)
@@ -316,7 +330,9 @@ def validate_card():
                   
     
 def addtoorders(cardno,pricedue):
-    
+    # This function adds the users order in a new row to the googlesheets spreadsheet, it also generates a random number between 1 and 1000 for the users order number.
+    # this function also returns the users order number allowing them to cancel that order in the future using other features of this application
+    #
     orderno = random.randint(1, 1000)
     row = [orderno,cardno,pricedue]
     ORDERS.append_row(row)
@@ -333,6 +349,10 @@ def addtoorders(cardno,pricedue):
         
         
 def cancelorder():
+    # When the user completes an order they are given an order number, this function allows the user to cancel their order
+    # This function allows the user to enter there order number and if this number corresponds to a number within the spreadsheet held on google sheets
+    # the user is returned the option to cancel there order, it then communicates with google sheets and deletes the row from the spreadsheet
+    # If the order number doesnt exist the user is returned a message that the order number is incorrect
     print(break_line)
     print("Please enter your order number")
     while True:
@@ -367,6 +387,9 @@ def cancelorder():
     
 
 def main():
+    # This is the main function with the options allowing the user to navigate through the application
+    # It has 3 options to choose from which will send the user to the chosen part.
+    # The user will also be returned here after using each one of the different options
     print("""
     
                         𝕊𝕠𝕚𝕝 𝕒𝕟𝕕 𝕡𝕝𝕒𝕟𝕥 𝕔𝕒𝕝𝕔𝕦𝕝𝕒𝕥𝕠𝕣  
@@ -375,9 +398,10 @@ def main():
             ------------ 1. Soil Calculator and Purchase            ----------
             ------------ 2. Plant Calculator and Purchase           ----------
             ------------ 3. Cancel an Order using your order number ----------
-            ----        Enter the corresponding number to access your     ----
-            ------------            selection (1 - 3)               ----------
-                """)
+            ------------------------------------------------------------------       
+              Enter the corresponding number to access your selection (1 - 3)
+        
+        """)
     global choice
     while True:
         choice = input(enter_input)
