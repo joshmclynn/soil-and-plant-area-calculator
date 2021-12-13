@@ -53,7 +53,7 @@ def plantcalc():
             break
         elif answer == "2":
             pot_choice = PLANTSIZE[1]
-            pot_type = "5 litre"
+            pot_type = "5 Litre"
             
             break
         elif answer == "3":
@@ -116,6 +116,7 @@ def calc_plant(total_area,pot_choice):
 def plant_price(pot_type, amount_needed_round):
     print(break_line)
     print("Here are some examples of total prices for the amount of plants that you need for the pot size you want")
+    print("Plant-Name / total price in pounds")
     
     print(break_line)
     price_list = []
@@ -135,7 +136,10 @@ def plant_price(pot_type, amount_needed_round):
             break
     
     display_list = []
+   
     full_price = [(int(float(price_list[i])) * amount_needed_round)for i in range(0,len(price_list))]
+    
+    prepend(full_price_format,pound)
     display_list = [(plant_list[i],full_price[i]) for i in range(0, len(plant_list))]
     print(display_list)
     
