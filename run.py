@@ -32,6 +32,7 @@ pot_choice = 0
 plant_price_amount = 0
 
 
+
 def plantcalc():
     """
     This function prompts the user to enter the pot size they want, sets the
@@ -40,7 +41,7 @@ def plantcalc():
     and returns this to the user and then calls the function that will
     calculate total number of pots required at the users required size
     """
-    print("Which pot size would you like to use in your garden")
+    print("Which square pot size would you like to use in your garden")
     print(break_line)
     print("""
           ------------ 1. 1 Litre ------------
@@ -268,7 +269,7 @@ def bulkbag(volume):
     while True:
         bulkbagansw = input(enter_input)
         if bulkbagansw == "1":
-            payment()
+            payment(bag)
             break
         elif bulkbagansw == "2":
             main()
@@ -285,8 +286,8 @@ def hundredbag(volume):
     buy smaller bags or continue to payment, or return to the menu
     """
     bag = SOIL[1]
-    global total
     pretotal = volume / bag
+    global total
     total = math.ceil(pretotal)
     print(break_line)
     print("If you used 100L bags you would need", total, "bags")
@@ -298,7 +299,7 @@ def hundredbag(volume):
         if hundbag == "1":
             fiftybag(volume)
         elif hundbag == "2":
-            payment()
+            payment(bag)
         elif hundbag == "3":
             main()
         else:
@@ -313,8 +314,8 @@ def fiftybag(volume):
     menu
     """
     bag = SOIL[0]
-    global total
     pretotal = volume / bag
+    global total
     total = math.ceil(pretotal)
     print(break_line)
     print("If you used 50L bags you would need", total, "bags")
@@ -323,25 +324,25 @@ def fiftybag(volume):
     while True:
         fifbag = input(enter_input)
         if fifbag == "1":
-            payment()
+            payment(bag)
         elif fifbag == "2":
             main()
         else:
             print("Please choose either 1 or 2")
 
 
-def payment():
+def payment(bag):
     """
     This function calculates the price due from the users order, then returns
     the price to the user and asks whether they would like to continue
     to payment it then sends the information to the validate card function
     """
     global pricedue
-    if answer == "1":
+    if bag == 2831:
         pricedue = round(total * SOILPRICE[2], 2)
-    elif answer == "2":
+    elif bag == 100:
         pricedue = round(total * SOILPRICE[1], 2)
-    elif answer == "3":
+    elif bag == 50:
         pricedue = round(total * SOILPRICE[0], 2)
     print(break_line)
     print("Your total is : £", pricedue)
