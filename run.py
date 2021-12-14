@@ -416,6 +416,7 @@ def cancelorder():
     """
     print(break_line)
     print("Please enter your order number")
+    print("Or enter r to return to the main menu")
     while True:
         userorder = input(enter_input)
         currentorders = [o for o in ORDERS.col_values(1)]
@@ -434,6 +435,7 @@ def cancelorder():
     print("Your order is ", "ORDER-NUMBER:", ordernum)
     print("CARD-NUM:", ordercred)
     print("ORDER-PRICE:£", orderamount,)
+    print(break_line)
     print("are you sure you want to cancel it?")
     print("If you wish to continue with cancelling your order please press 1")
     print("If you no longer wish to cancel it, press 2")
@@ -441,6 +443,7 @@ def cancelorder():
         cancel_input = input(enter_input)
         if cancel_input == "1":
             ORDERS.delete_rows(ORDERS.find(userorder).row)
+            print(break_line)
             print("order", userorder, "has now been cancelled")
             main()
             break
