@@ -4,21 +4,21 @@
    soil calculations from the users entered information with pricing and ordering available. The plant calculator calculates various amounts of 
    plants needed for the user givens area, it then also returns a variety of example plants with the total cost for said plants(that the user would need).
 ## Contents
-   * UX 
-      * User Story
-      * Project Goals
-      * Structure of application
-    * Features
-      * Current features
-      * Future features
-    * Technologies Used
-      * Language
-      * Other
-    * Testing
-      * Bugs/Fixes
-      * Validation
-    * Deployment
-    * Credits
+* UX 
+  * User Story
+  * Project Goals
+  * Structure of application
+* Features
+  * Current features
+  * Future features
+* Technologies Used
+  * Language
+  * Other
+* Testing
+  * Bugs/Fixes
+  * Validation
+* Deployment
+* Credits
 ## UX
 ### User Story
    . The user I invisage using this application would be someone who would be looking to either buy soil or different types of plants.
@@ -91,10 +91,12 @@ The project aside from the code institutes template is 100% [python](https://www
   * Most of the bugs during this project were caused by spelling mistakes or mislabling/not converting from string to float
   * One bug that was brought to my attention was when a user entered a number below 1 in the functions that would calculate area it would always return 0 for the total area,
     I later discoved this was due to me converting from a string to an int, when I should have just been converting a float instead.
+  * A bug discovered recently was when the user is given the option to buy a smaller bag, the price of the bulkbag was being carried over onto the payment section even though the amount of bags needed would change, this has been fixed by changing the if statement in payments.
   * As far as I am aware there are no current bugs.
   * During testing I have been very thorough when making sure that I try to input wrong information in each of the input sections, all of these tests have proved positive.
   * I found a way to avoid bugs during the development of this code was to complete individual functions and run them on the command line and test before I moved on.
   * One potential bug I could see would be a user ordering a soil amount that would return a price that would be longer than the terminal(80 characters) caused a split line on the users end.
+  * 
 ### Validations
   * I used [Pep8 online](http://pep8online.com/) to validate my code, not warnings.
 ![Pep8](/docs/pep8.PNG "Screenshot from pep8")
