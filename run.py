@@ -33,7 +33,7 @@ plant_price_amount = 0
 
 
 
-def plantcalc():
+def plant_calc():
     """
     This function prompts the user to enter the pot size they want, sets the
     variables to match there choice then asks the user to enter the dimensions
@@ -157,6 +157,8 @@ def plant_price(pot_type, amount_needed_round):
     display_list = [(plant_list[i], full_price[i])
                     for i in range(0, len(plant_list))]
     print(display_list)
+    print("For more information on plants please contact your")
+    print("local retailer")
     print("To return to the menu please enter 1")
     print(break_line)
     while True:
@@ -167,7 +169,7 @@ def plant_price(pot_type, amount_needed_round):
             print("To return to the menu enter 1!")
 
 
-def calcarea():
+def calc_area():
     """
     This function prompts the user to enter the dimensions of the area they
     are wanting to fill with soil, it only allows the user to enter numbers,
@@ -176,6 +178,7 @@ def calcarea():
     information to the user, it then sends the user to a function
     allowing them to choose the size of soil bags they want
     """
+    global volume
     correctinput = r"^[.0-9]+$"
     while True:
         print(break_line)
@@ -207,16 +210,15 @@ def calcarea():
     length = float(length)
     width = float(width)
     depth = float(depth)
-    global volume
     mcubes = (length * width * depth)
     volume = (mcubes * 1000)
     print(break_line)
     print("The total volume you have is", volume, "in litres")
-    whatsoil()
+    what_soil()
     return volume
 
 
-def whatsoil():
+def what_soil():
     """
     This function prompts the user to choose from the soil bag sizes and
     then sends this infomation to the relevant function (50L, 100L or bulkbag)
@@ -231,22 +233,22 @@ def whatsoil():
     global answer
     answer = input(enter_input)
     if answer == "1":
-        bulkbag(volume)
+        bulk_bag(volume)
     elif answer == "2":
-        hundredbag(volume)
+        hundred_bag(volume)
     elif answer == "3":
-        fiftybag(volume)
+        fifty_bag(volume)
 
 
-def bulkbag(volume):
+def bulk_bag(volume):
     """
     This function returns the total amount of "bulk-bags" needed to fill
     the users inputed area,
     it then prompts the user to either navigate to payment or return to
     the menu
     """
-    bag = SOIL[2]
     global total
+    bag = SOIL[2]
     pretotal = (volume / bag)
     total = math.ceil(pretotal)
     print(break_line)
@@ -278,16 +280,16 @@ def bulkbag(volume):
             print("Incorrect input please choose between 1 and 2")
 
 
-def hundredbag(volume):
+def hundred_bag(volume):
     """
     This function returns the total amount of 100 litre soil bags needed to
     fill the users inputed area,
     it then asks if the user would like to either
     buy smaller bags or continue to payment, or return to the menu
     """
+    global total
     bag = SOIL[1]
     pretotal = volume / bag
-    global total
     total = math.ceil(pretotal)
     print(break_line)
     print("If you used 100L bags you would need", total, "bags")
@@ -306,16 +308,16 @@ def hundredbag(volume):
             print("Please choose between 1 and 3")
 
 
-def fiftybag(volume):
+def fifty_bag(volume):
     """
     This function returns the total amount of 50 litre soil bags needed to fill
     the users inputed area(rounded up as you cant sell half bags)
     It then prompts the user to either continue to payment or return to the
     menu
     """
+    global total
     bag = SOIL[0]
     pretotal = volume / bag
-    global total
     total = math.ceil(pretotal)
     print(break_line)
     print("If you used 50L bags you would need", total, "bags")
@@ -374,13 +376,13 @@ def validate_card():
         correct_card = r"^[0-9]{12}$"
         true = re.match(correct_card, cardno)
         if true:
-            addtoorders(cardno, pricedue)
+            add_to_orders(cardno, pricedue)
             break
         else:
             print("Incorrect input please enter your 12 digit card number")
 
 
-def addtoorders(cardno, pricedue):
+def add_to_orders(cardno, pricedue):
     """
     This function adds the users order in a new row to the googlesheets
     spreadsheet,  it also generates a random number between 1 and
@@ -404,7 +406,7 @@ def addtoorders(cardno, pricedue):
             print("To return to the menu press m!")
 
 
-def cancelorder():
+def cancel_order():
     """
     When the user completes an order they are given an order number,
     this function allows the user to cancel their order This function
@@ -476,13 +478,13 @@ def main():
     while True:
         choice = input(enter_input)
         if choice == "1":
-            calcarea()
+            calc_area()
             break
         elif choice == "2":
-            plantcalc()
+            plant_calc()
             break
         elif choice == "3":
-            cancelorder()
+            cancel_order()
             break
         else:
             print("Please choose between 1-3")
