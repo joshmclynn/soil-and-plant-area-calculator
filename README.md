@@ -21,14 +21,14 @@
 * Credits
 ## UX
 ### User Story
-   . The user I invisage using this application would be someone who would be looking to either buy soil or different types of plants.
-   . The user could also be someone planning a garden design and needing to work out costs for various aspects of there garden.
+   * The user I invisage using this application would be someone who would be looking to either buy soil or different types of plants.
+   * The user could also be someone planning a garden design and needing to work out costs for various aspects of there garden.
    
-   . "As a user I want to be able to easily navigate and find the information that im after"
-   ." As a user I want my input to be acknoledged and provided back to me in meaninful ways"
-   ." As a user I want to be able to understand the information that is provided back to me"
+   * "As a user I want to be able to easily navigate and find the information that im after"
+   * " As a user I want my input to be acknoledged and provided back to me in meaninful ways"
+   * " As a user I want to be able to understand the information that is provided back to me"
 ### Project Goals
-   . When creating this program my goals were:
+ * When creating this program my goals were:
       * To create an application that was easy to operate
       * To create an application that provided functionality
       * To have a link between data stores in GoogleSheets and the user
@@ -36,8 +36,8 @@
 ### Structure
 ![DATA Structure](/docs/data_model_flow.PNG "Image showing the functionality and flow of the application")
 
-   . The structure of the application is demonstrated above, with three functions "payment/cardno/orderno" and "return example of pots" adding/returning/or removing information from GoogleSheets via API
-   . I felt an important aspect was having a central main menu style in order to allow the user to navigate easily throughout the application
+   * The structure of the application is demonstrated above, with three functions "payment/cardno/orderno" and "return example of pots" adding/returning/or removing information from GoogleSheets via API
+   * I felt an important aspect was having a central main menu style in order to allow the user to navigate easily throughout the application
 ## Features
 ### Current Features
 * Main Menu 
@@ -90,28 +90,34 @@ The project aside from the code institutes template is 100% [python](https://www
   * [Regex101](https://regex101.com/) Testing regex
 ## Testing
 ### Manual Testing
-  * Implementation: To ensure the user can easily navigate the site and doesnt hit any dead ends
-    Test: The test will involve systematically navigating through the application with the intention of getting lost.
-    Result: Each aspect of the application was checked with sufficient exit points at each natural break.
-    Verdict: This test passed and no amendments were required.
-  * Implementation: Trying random inputs into user input points to ensure the application doesnt crash.
-    Test: Systematically attempting various incorrect inputs in all user input entry points
-    Result: At no point was the application broken
-    Verdict: This test passed and no changes were made
-  * Implementation: To attempt to add incorrect inputs to the orders section 
-    Test: Attempt large orders
-    Result: No amount tested in volume returned a number which would break the application
-    Verdict: This test passed and no changes were made
+  * Test 1
+      * Implementation: To ensure the user can easily navigate the site and doesnt hit any dead ends
+      * Test: The test will involve systematically navigating through the application with the intention of getting lost.
+      * Result: Each aspect of the application was checked with sufficient exit points at each natural break.
+      * Verdict: This test passed and no amendments were required.
+  * Test 2
+      * Implementation: Trying random inputs into user input points to ensure the application doesnt crash.
+      * Test: Systematically attempting various incorrect inputs in all user input entry points
+      * Result: At no point was the application broken
+      * Verdict: This test passed and no changes were made
+  * Test 3
+      * Implementation: To attempt to add incorrect inputs to the orders section 
+      * Test: Attempt large orders
+      * Result: No amount tested in volume returned a number which would break the application
+      * Verdict: This test passed and no changes were made
 ### Bugs/Fixes
-  * Problem: When giving the user the option to change from a bulk-bag to a 100l bag the price of a bulkbag would be carried over.
-    Cause: If statement targetting wrong aspect
-    Resolution: change if statement to focus on the numerical value of the target
-  * Problem: User entering a value smaller than 1 when calculating soil amount needed
-    Cause: converting to an int rather than a float
-    Resolution: change to float(mystring etc)
-  * Problem: General crashes involving connecting to googlesheets
-    Cause: Incorrect spelling
-    Resolution: Thorough checking of code to ensure all entries were correctly spelt.
+  * Bug 1
+      * Problem: When giving the user the option to change from a bulk-bag to a 100l bag the price of a bulkbag would be carried over.
+      * Cause: If statement targetting wrong aspect
+      * Resolution: change if statement to focus on the numerical value of the target
+  * Bug 2
+      * Problem: User entering a value smaller than 1 when calculating soil amount needed
+      * Cause: converting to an int rather than a float
+      * Resolution: change to float(mystring etc)
+  * Bug 3
+      * Problem: General crashes involving connecting to googlesheets
+      * Cause: Incorrect spelling
+      * Resolution: Thorough checking of code to ensure all entries were correctly spelt.
 ### Validations
   * I used [Pep8 online](http://pep8online.com/) to validate my code, not warnings.
 ![Pep8](/docs/pep8.PNG "Screenshot from pep8")
