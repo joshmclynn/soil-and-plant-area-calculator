@@ -4,21 +4,21 @@
    soil calculations from the users entered information with pricing and ordering available. The plant calculator calculates various amounts of 
    plants needed for the user givens area, it then also returns a variety of example plants with the total cost for said plants(that the user would need).
 ## Contents
-   * UX 
-      * User Story
-      * Project Goals
-      * Structure of application
-    * Features
-      * Current features
-      * Future features
-    * Technologies Used
-      * Language
-      * Other
-    * Testing
-      * Bugs/Fixes
-      * Validation
-    * Deployment
-    * Credits
+* UX 
+  * User Story
+  * Project Goals
+  * Structure of application
+* Features
+  * Current features
+  * Future features
+* Technologies Used
+  * Language
+  * Other
+* Testing
+  * Bugs/Fixes
+  * Validation
+* Deployment
+* Credits
 ## UX
 ### User Story
    . The user I invisage using this application would be someone who would be looking to either buy soil or different types of plants.
