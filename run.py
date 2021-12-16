@@ -32,12 +32,7 @@ pot_choice = 0
 plant_price_amount = 0
 
 
-<<<<<<< HEAD
-
 def plant_calc():
-=======
-def plantcalc():
->>>>>>> 006c1deaa788834589eb909cfd8fa519d0be6d08
     """
     This function prompts the user to enter the pot size they want, sets the
     variables to match there choice then asks the user to enter the dimensions
@@ -360,8 +355,8 @@ def payment(bag):
             validate_card()
             break
         elif payans == "2":
-                main()
-                break
+            main()
+            break
         else:
             print("Please enter either 1 or 2!")
 
@@ -434,7 +429,7 @@ def cancel_order():
             orderamount = order[2]
             break
         if userorder == "r":
-                main()
+            main()
         else:
             print("Incorrect order number please re-enter your order number")
             print("or enter r to return to menu")
