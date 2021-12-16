@@ -32,7 +32,6 @@ pot_choice = 0
 plant_price_amount = 0
 
 
-
 def plantcalc():
     """
     This function prompts the user to enter the pot size they want, sets the
