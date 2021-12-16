@@ -59,6 +59,7 @@
 ![Plant Calculator](/docs/plantcalc.PNG "Screenshot of the plant calculator")
     * The user is then also given the option to get the prices for a variety of plants at the amount of pots they need.
     * The function then gets the needed information from the googlesheets document and times the individual pot size price by the amount of pots they need, printing this to the        user.
+    * A payment feature wasnt included with this calculator due to the plants being provided and there prices being an average across a number of website.
 ![Plant Calculator/Plant amounts](/docs/plantprice.PNG "Screenshot showing the returned variety of plants and total cost for the amount needed")
 * Payment
     * When using the soil calculator you are given the option to "purchase" the amount of soil you need.
@@ -77,6 +78,7 @@
 ###  Future features
  * In the future I would like to build the front end interface allowing for more userbility, allowing for a more tailored experience for the user.
  * I would also like to update the payment function to be more real word asking for a full CC number with expiry date etc.
+ * Further to the point above, implementing an third party payment interface would be critical in ensuring the safety of users card details.
 ## Technologies Used
 ### Main Languages
 The project aside from the code institutes template is 100% [python](https://www.python.org/)
@@ -87,16 +89,29 @@ The project aside from the code institutes template is 100% [python](https://www
   * [Pep8](http://pep8online.com/) validation
   * [Regex101](https://regex101.com/) Testing regex
 ## Testing
+### Manual Testing
+  * Implementation: To ensure the user can easily navigate the site and doesnt hit any dead ends
+    Test: The test will involve systematically navigating through the application with the intention of getting lost.
+    Result: Each aspect of the application was checked with sufficient exit points at each natural break.
+    Verdict: This test passed and no amendments were required.
+  * Implementation: Trying random inputs into user input points to ensure the application doesnt crash.
+    Test: Systematically attempting various incorrect inputs in all user input entry points
+    Result: At no point was the application broken
+    Verdict: This test passed and no changes were made
+  * Implementation: To attempt to add incorrect inputs to the orders section 
+    Test: Attempt large orders
+    Result: No amount tested in volume returned a number which would break the application
+    Verdict: This test passed and no changes were made
 ### Bugs/Fixes
-  * Most of the bugs during this project were caused by spelling mistakes or mislabling/not converting from string to float
-  * One bug that was brought to my attention was when a user entered a number below 1 in the functions that would calculate area it would always return 0 for the total area,
-    I later discoved this was due to me converting from a string to an int, when I should have just been converting a float instead.
-  * A bug discovered recently was when the user is given the option to buy a smaller bag, the price of the bulkbag was being carried over onto the payment section even though the amount of bags needed would change, this has been fixed by changing the if statement in payments.
-  * As far as I am aware there are no current bugs.
-  * During testing I have been very thorough when making sure that I try to input wrong information in each of the input sections, all of these tests have proved positive.
-  * I found a way to avoid bugs during the development of this code was to complete individual functions and run them on the command line and test before I moved on.
-  * One potential bug I could see would be a user ordering a soil amount that would return a price that would be longer than the terminal(80 characters) caused a split line on the users end.
-  * 
+  * Problem: When giving the user the option to change from a bulk-bag to a 100l bag the price of a bulkbag would be carried over.
+    Cause: If statement targetting wrong aspect
+    Resolution: change if statement to focus on the numerical value of the target
+  * Problem: User entering a value smaller than 1 when calculating soil amount needed
+    Cause: converting to an int rather than a float
+    Resolution: change to float(mystring etc)
+  * Problem: General crashes involving connecting to googlesheets
+    Cause: Incorrect spelling
+    Resolution: Thorough checking of code to ensure all entries were correctly spelt.
 ### Validations
   * I used [Pep8 online](http://pep8online.com/) to validate my code, not warnings.
 ![Pep8](/docs/pep8.PNG "Screenshot from pep8")
