@@ -79,6 +79,7 @@
  * In the future I would like to build the front end interface allowing for more userbility, allowing for a more tailored experience for the user.
  * I would also like to update the payment function to be more real word asking for a full CC number with expiry date etc.
  * Further to the point above, implementing an third party payment interface would be critical in ensuring the safety of users card details.
+ * Store Used order numbers in order to not have a repeat number, I purposefully chose a large range for the randomizer for this reason.
 ## Technologies Used
 ### Main Languages
 The project aside from the code institutes template is 100% [python](https://www.python.org/)
